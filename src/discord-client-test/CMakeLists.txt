@@ -15,6 +15,7 @@ find_package(GTest REQUIRED)
 include(GoogleTest)
 
 add_subdirectory(HogehogeTest)
+add_subdirectory(ClassTest)
 
 # add_subdirectory(shirao-works)
 # add_subdirectory(yshigeno-works)
