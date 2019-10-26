@@ -14,6 +14,8 @@ template <class T>
 class Param : ParamBase {
 public:
 
+	Param(void) = delete;
+
 	/// @brief Constructor.
 	/// @param default_value value when unset.
 	Param(const T & default_value) noexcept;
@@ -35,6 +37,12 @@ public:
 	///
 	/// Currently, no operation.
 	virtual ~Param(void) noexcept;
+
+	/// @brief Copy assignment
+	Param<T> & operator=(const Param<T> & param);
+
+	/// @brief Move assignment
+	Param<T> & operator=(Param<T> && param);
 
 	/// @brief Clear value.
 	///
@@ -63,9 +71,13 @@ public:
 	/// @sa get()
 	operator T(void) noexcept;
 
+	/// @brief return "Param" string.
+	/// @return string "Param"
 	virtual std::string toString(void) const noexcept override;
 
 private:
+	Param(const T & default_value, const T & value, const bool is_set) noexcept;
+
 	const T default_value_;
 	T value_;
 	bool is_set_;
@@ -76,22 +88,38 @@ private:
 /////////////////////////////////////////////////////////////////////////////////
 template<class T>
 inline Param<T>::Param(const T & default_value) noexcept
-	: Param(default_value, default_value) {}
+	: Param(default_value, default_value, false) {}
 
 template<class T>
 inline Param<T>::Param(const Param<T>& copy) noexcept
-	: Param(copy.default_value_, copy.value_) {}
+	: Param(copy.default_value_, copy.value_, copy.is_set_) {}
 
 template<class T>
 inline Param<T>::Param(Param<T>&& move) noexcept
-	: Param(std::move(move.default_value_), std::move(move.value_)) {}
+	: Param(std::move(move.default_value_), std::move(move.value_), move.is_set_) {}
 
 template<class T>
 inline Param<T>::Param(const T & default_value, const T & value) noexcept
-	: default_value_(default_value), value_(value) {}
+	: Param(default_value, value, true) {}
 
 template<class T>
 inline Param<T>::~Param(void) noexcept {}
+
+template<class T>
+inline Param<T>& Param<T>::operator=(const Param<T>& param) {
+	this->value_ = param.value_;
+	this->default_value_ = param.default_value_;
+	return *this;
+}
+
+template<class T>
+inline Param<T>& Param<T>::operator=(Param<T>&& param) {
+	if (this != &param) {
+		this->value_ = std::move(param.value_);
+		this->default_value_ = std::move(param.default_value_);
+	}
+	return *this;
+}
 
 template<class T>
 inline void Param<T>::clear(void) noexcept {
@@ -101,15 +129,17 @@ inline void Param<T>::clear(void) noexcept {
 
 template<class T>
 inline bool Param<T>::isSet(void) noexcept
-{ return this->isSet; }
+{ return this->is_set_; }
 
 template<class T>
 inline const T & Param<T>::get(void) const noexcept
 { return this->value_; }
 
 template<class T>
-inline void Param<T>::set(const T & value) noexcept
-{ this->value_ = value; }
+inline void Param<T>::set(const T & value) noexcept {
+	this->is_set_ = true;
+	this->value_ = value;
+}
 
 template<class T>
 inline Param<T>::operator T(void) noexcept
@@ -117,7 +147,11 @@ inline Param<T>::operator T(void) noexcept
 
 template<class T>
 inline std::string Param<T>::toString(void) const noexcept
-{ return "Param <" + std::to_string(static_cast<unsigned long long>(this) + ">"); }
+{ return "A Param"; }
+
+template<class T>
+inline Param<T>::Param(const T & default_value, const T & value, const bool is_set) noexcept
+	: default_value_(default_value), value_(value), is_set_(is_set) {}
 
 }
 
