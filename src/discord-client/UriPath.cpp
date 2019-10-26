@@ -15,7 +15,7 @@ lbvr::UriPath::UriPath(const std::string & path, const std::unordered_map<std::s
 	};
 
 	while (_findNextPlaceholder()) {
-		const std::string placeholder = path.substr(start + 1, end - start - 1);
+		const std::string placeholder = this->uri_.substr(start + 1, end - start - 1);
 		assert(args.count(placeholder));
 		const std::string value = args.at(placeholder);
 		this->uri_ = this->uri_.substr(0, start) + value + this->uri_.substr(end + 1);
