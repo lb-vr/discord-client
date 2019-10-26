@@ -20,10 +20,6 @@ private:
 	const std::string path_;
 	const std::unordered_map<std::string, std::string> args_;
 	std::string uri_;
-
-	//major parameters
-	Snowflake<Channel> channelID;
-	Snowflake<Server> serverID;
 };
 
 }
