@@ -28,84 +28,17 @@ class PresenceUpdateBase;
 
 namespace guild {
 
-enum struct GuildFeature {
-	INVITE_SPLASH,	///< guild has access to set an invite splash background
-	VIP_REGIONS,	///< guild has access to set 384kbps bitrate in voice(previously VIP voice servers)
-	VANITY_URL,		///< guild has access to set a vanity URL
-	VERIFIED,		///< guild is verified
-	PARTNERED,		///< guild is partnered
-	PUBLIC,			///< guild is public
-	COMMERCE,		///< guild has access to use commerce features(i.e.create store channels)
-	NEWS,			///< guild has access to create news channels
-	DISCOVERABLE,	///< guild is able to be discovered in the directory
-	FEATURABLE,		///< guild is able to be featured in the directory
-	ANIMATED_ICON,	///< guild has access to set an animated guild icon
-	BANNER,			///< guild has access to set a guild banner image
-};
-class guild_feature : Param<GuildFeature> {};
+// Param
+class content_filter_level_d;
+class guild_feature_d;
+class message_notification_level_d;
+class mfa_level_d;
+class verification_level_d;
+class premium_tier_d;
 
-enum struct MessageNotificationLevel {
-	ALL_MESSAGE = 0,
-	ONLY_MENTIONS = 1
-};
-class message_notification_level_d : Param<MessageNotificationLevel>{};
-
-enum struct ContentFilterLevel {
-	DISABLED = 0,
-	MEMBER_WITHOUT_ROLES = 1,
-	ALL_MEMBERS = 2
-};
-class content_filter_level_d : Param<ContentFilterLevel> {};
-
-enum struct MfaLevel {
-	NONE = 0,
-	ELEVATED = 1
-};
-class mfa_level_d : Param<MfaLevel> {};
-
-enum struct VerificationLevel {
-	NONE = 0,	///< unrestricted
-	LOW,		///< must have verified email on account
-	MEDIUM,		///< must be registered on Discord for longer than 5 minutes
-	HIGH,		///< must be a member of the server for longer than 10 minutes
-	VERY_HIGH	///< must have a verified phone number
-};
-class verification_level_d : Param<VerificationLevel> {};
-
-enum PremiumTier {
-	NONE = 0,
-	TIER_1,
-	TIER_2,
-	TIER_3
-};
-class premium_tier_d : Param<PremiumTier> {};
-
-class UnavailableGuildBase : public DiscordObjectBase {
-protected:
-	_base<snowflake_d>		id_;			///< guild id.
-	_base<boolean_d>		unavailable_;	///< whether this guild is unavailable.
-};
-
-class GuildEmbedBase : public DiscordObjectBase {
-protected:
-	_base<snowflake_d>		channel_id_;	///< nullable. the embed channel id.
-	_base<boolean_d>		enabled_;		///< whether the embed is enabled.
-};
-
-class GuildMemberBase : public DiscordObjectBase {
-protected:
-	using user_d = user::UserBase;
-	using roles_d = array_d<role::RoleID>;
-	_base<user_d>			user_;			///< the user this guild member represents.
-	_base<string_d>			nick_;			///< optional. this users guild nickname(if one is set).
-	_base<roles_d>			roles_;			///< array of role object ids.
-	_base<timestamp_d>		joined_at_;		///< when the user joined the guild.
-	_base<timestamp_d>		premium_since_;	///< nullable and optional. when the user used their Nitro boost on the server.
-	_base<boolean_d>		deaf_;			///< whether the user is deafened in voice channels.
-	_base<boolean_d>		mute_;			///< whether the user is muted in voice channels.
-};
-
-
+// BaseClass
+class GuildMemberBase;
+class UnavailableGuildBase;
 
 /// 
 /// Discord document at https://discordapp.com/developers/docs/resources/guild
@@ -114,7 +47,7 @@ class GuildBase : public DiscordObjectBase{
 protected:
 	using roles_d				= array_d<role::RoleBase>;
 	using emojis_d				= array_d<emoji::EmojiBase>;
-	using guild_features_d		= array_d<guild_feature>;
+	using guild_features_d		= array_d<guild_feature_d>;
 	using voice_states_d		= array_d<voice::VoiceStateNoGuildId>;
 	using guild_members_d		= array_d<GuildMemberBase>;
 	using channels_d			= array_d<channel::ChannelBase>;

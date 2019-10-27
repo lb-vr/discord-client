@@ -13,9 +13,6 @@ public:
 protected:
 	template <class T>
 	using _base = std::unique_ptr<T>;
-
-	template <class T>
-	using _mkbase = std::make_unique<T>;
 };
 
 }

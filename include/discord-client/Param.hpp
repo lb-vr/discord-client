@@ -5,31 +5,37 @@
 #include <iostream>
 #include <cassert>
 #include <memory>
+#include "json11.hpp"
 
 namespace lbvr {
 
 class ParamBase {
 public:
 	virtual std::string toString(void) const noexcept = 0;
+	virtual json11::Json toJson(void) const noexcept = 0;
 };
 
 template <class T>
 class Param : public ParamBase {
 public:
-	Param(const T & value_) noexcept;
+	/// @brief Constructor with value.
+	Param(const T & value) noexcept;
+
+	/// @brief Copy constructor.
 	Param(const Param & cp) noexcept;
+
+	/// @brief Move constructor.
 	Param(Param && mv) noexcept;
+
+	/// @brief Destructor.
 	virtual ~Param(void) noexcept;
 
 	/// @brief get value.
-	/// @return value if value is set, else returns default value.
 	virtual const T & get(void) const noexcept;
 
 	/// @brief set value.
 	/// @param value new value.
-	///
-	/// After you call this function, isSet() returns true.
-	virtual bool set(const T & value) noexcept;
+	virtual void set(const T & value) noexcept;
 
 	/// @brief Copy assignment
 	Param<T> & operator=(const Param<T> & param);
@@ -41,63 +47,23 @@ public:
 	/// @return value if value is set, else returns default value.
 	/// @sa get()
 	operator T(void) noexcept;
-
-	virtual bool isValid(const T & try_val) const noexcept;
-
-	/// @brief return "A Param" string.
-	/// @return string "A Param"
-	virtual std::string toString(void) const noexcept override;
+protected:
+	T & getRef(void) noexcept;
 private:
 	T value_;
 };
-/*
+
 template <class T>
-class ParamNullable : public Param<std::unique_ptr<T>> {
-public:
+class EnumParam : Param<T> {
+	using Param<T>::Param;
 
-	ParamNullable(void);
+	/// @brief getAsInt.
+	int getAsInt(void) const noexcept;
 
-	/// @brief Copy constructor.
-	/// @param copy source instance.
-	ParamNullable(const ParamNullable<T> & copy) noexcept;
-	
-	/// @brief Move constructor.
-	/// @param move source instance.
-	ParamNullable(ParamNullable<T> && move) noexcept;
-
-	/// @brief Destructor
-	///
-	/// Currently, no operation.
-	virtual ~ParamNullable(void) noexcept;
-
-	/// @brief get value.
-	/// @return value if value is set, else returns default value.
-	virtual const T & get(void) const noexcept override;
-
-	/// @brief set value.
-	/// @param value new value.
-	///
-	/// After you call this function, isSet() returns true.
-	virtual bool set(const T & value) noexcept override;
-
-	/// @brief Clear value.
-	///
-	/// This function unsets value,
-	/// isSet() returns false,
-	/// get() returns default value.
-	void clear(void) noexcept;
-	
-	/// @brief is value set?
-	/// @retval true value is set.
-	/// @retval false value is not set. get() returns default value.
-	bool isSet(void) noexcept;
-
-	/// @brief return "A Param" or "Null" string.
-	/// @return string "A Param" or "Null"
-	virtual std::string toString(void) const noexcept override;
-
+	/// @brief toJson.
+	virtual json11::Json toJson(void) const noexcept;
 };
-*/
+
 /////////////////////////////////////////////////////////////////////////////////
 // BELOW INLINE IMPLEMENTS
 /////////////////////////////////////////////////////////////////////////////////
@@ -134,75 +100,26 @@ template<class T>
 inline const T & Param<T>::get(void) const noexcept { return this->value_; }
 
 template<class T>
-inline bool Param<T>::set(const T & value) noexcept {
-	bool is_valid = this->isValid(value);
-	if (is_valid) {
-		this->value_ = value;
-	}
-	else {
-		std::cerr << "Tried to set INVALID VALUE. Current value is \"" << this->toString() << "\"." << std::endl;
-		assert(this->isValid(value));
-	}
-	return is_valid;
+inline void Param<T>::set(const T & value) noexcept {
+	this->value_ = value;
 }
 
 template<class T>
 inline Param<T>::operator T(void) noexcept { return this->get(); }
 
 template<class T>
-inline bool Param<T>::isValid(const T & try_val) const noexcept { return true; }
+inline T & Param<T>::getRef(void) noexcept { return this->value_; }
 
 template<class T>
-inline std::string Param<T>::toString(void) const noexcept { return "A Param"; }
-/*
-template<class T>
-inline ParamNullable<T>::ParamNullable(void)
-	: Param(nullptr) {}
-
-template<class T>
-inline ParamNullable<T>::ParamNullable(const ParamNullable<T>& copy) noexcept
-	: Param(std::make_unique<T>(*copy.get()))
-{}
-
-template<class T>
-inline ParamNullable<T>::ParamNullable(ParamNullable<T> && move) noexcept
-	: Param(std::move(move))
-{}
-
-template<class T>
-inline ParamNullable<T>::~ParamNullable(void) noexcept {}
-
-template<class T>
-inline const T & ParamNullable<T>::get(void) const noexcept {
-	assert(this->isSet());
-	return *Param::get();
+inline int EnumParam<T>::getAsInt(void) const noexcept {
+	return static_cast<int>(this->get());
 }
 
 template<class T>
-inline bool ParamNullable<T>::set(const T & value) noexcept {
-	bool is_valid = this->isValid(value);
-	if (is_valid) {
-		Param::set(std::make_unique<T>(value));
-		this->is_set_ = true;
-	}
-	return is_valid;
+inline json11::Json EnumParam<T>::toJson(void) const noexcept {
+	return json11::Json(this->getAsInt());
 }
 
-template<class T>
-inline void ParamNullable<T>::clear(void) noexcept {
-	Param::get().release();
-}
-
-template<class T>
-inline bool ParamNullable<T>::isSet(void) noexcept {
-	return static_cast<bool>(Param::get());
-}
-
-template<class T>
-inline std::string ParamNullable<T>::toString(void) const noexcept {
-	return (this->isSet() ? "A Param" : "Null");
-}
-*/
 }
 
 #endif
