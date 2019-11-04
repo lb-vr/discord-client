@@ -88,7 +88,7 @@ inline lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::~__NullableD
 
 template<class T, T _DefVal>
 inline void lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::set(const T & value)
-{ this->is_set_ = true; this->value_ = value; }
+{ this->is_set_ = true; __DiscordParam::set(value); }
 
 template<class T, T _DefVal>
 inline bool lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::isSet(void) const noexcept
