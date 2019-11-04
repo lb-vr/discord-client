@@ -24,15 +24,15 @@ public:
 	virtual const T & get(void) const;
 	virtual void set(const T & value);
 protected:
-	T & ref(void) const;
+	T & ref(void);
 private:
 	T value_;
 };
 
-template <class T, T _DefVal = T()>
+template <class T, class _Initializer = T>
 class __NullableDiscordParam : public __DiscordParam<T> {
 public:
-	__NullableDiscordParam(void) noexcept;
+	__NullableDiscordParam(const T & default_value = _Initializer()) noexcept;
 	using __DiscordParam::__DiscordParam;
 	virtual ~__NullableDiscordParam(void) noexcept;
 	
@@ -80,34 +80,28 @@ inline void lbvr::types::__internal::__DiscordParam<T>::set(const T & value)
 { this->value_ = value; }
 
 template<class T>
-inline T & lbvr::types::__internal::__DiscordParam<T>::ref(void) const {
+inline T & lbvr::types::__internal::__DiscordParam<T>::ref(void) {
 	return this->value_;
 }
 
-template<class T, T _DefVal>
-inline lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::__NullableDiscordParam(void) noexcept
+template<class T, class _Initializer>
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam(const T & default_value) noexcept
 	: value_(_DefVal) {}
 
-template<class T, T _DefVal>
-inline lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::~__NullableDiscordParam(void) noexcept
+template<class T, class _Initializer>
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::~__NullableDiscordParam(void) noexcept
 {}
 
-template<class T, T _DefVal>
-inline void lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::set(const T & value)
+template<class T, class _Initializer>
+inline void lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::set(const T & value)
 { this->is_set_ = true; __DiscordParam::set(value); }
 
-template<class T, T _DefVal>
-inline bool lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::isSet(void) const noexcept
+template<class T, class _Initializer>
+inline bool lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::isSet(void) const noexcept
 { return this->is_set_; }
 
-template<class T, T _DefVal>
-inline void lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::setNull(void) noexcept
-{ this->is_set_ = false; this->value_ = _DefVal; }
-
-/*
-template<class T, T _DefVal>
-inline constexpr T lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::getDefaultValue(void) const
-{ return _DefVal; }
-*/
+template<class T, class _Initializer>
+inline void lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::setNull(void) noexcept
+{ this->is_set_ = false; this->value_ = _Initializer(); }
 
 #endif

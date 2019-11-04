@@ -1,21 +1,21 @@
 #ifndef LBVR_GUILD_MFALEVEL_HPP
 #define LBVR_GUILD_MFALEVEL_HPP
 
-#include "../Param.hpp"
+#include "../types/Enum.hpp"
 
 namespace lbvr {
 namespace guild{
 
 /// @brief mfa level
-enum struct MfaLevel {
+enum struct MfaLevelEnum {
 	NONE = 0,
 	ELEVATED = 1
 };
 
 /// @brief Type of mfa level.
-class mfa_level_d : public EnumParam<MfaLevel> {
+class MfaLevel : public types::Enum<MfaLevelEnum> {
 public:
-	using EnumParam<MfaLevel>::EnumParam;
+	using types::Enum<MfaLevelEnum>::Enum;
 
 	/// @brief toString.
 	virtual std::string toString(void) const noexcept;

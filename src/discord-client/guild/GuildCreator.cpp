@@ -1,3 +1,4 @@
+/*
 #include "discord-client/guild/GuildCreator.hpp"
 #include "discord-client/voice/VoiceRegionId.hpp"
 #include "discord-client/channel/ChannelNameAndType.hpp"
@@ -15,3 +16,4 @@ lbvr::guild::CreateGuild::CreateGuild(
 {
 	this->__impl->name_ = 
 }
+*/

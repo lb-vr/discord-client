@@ -1,12 +1,12 @@
 #include "discord-client\guild\ContentFilterLevel.hpp"
 
-std::string lbvr::guild::content_filter_level_d::toString(void) const noexcept {
+std::string lbvr::guild::ContentFilterLevel::toString(void) const {
 	switch (this->get()) {
-	case ContentFilterLevel::DISABLED:
+	case ContentFilterLevelEnum::DISABLED:
 		return "ContentFilterLevel::DISABLED";
-	case ContentFilterLevel::MEMBER_WITHOUT_ROLES:
+	case ContentFilterLevelEnum::MEMBER_WITHOUT_ROLES:
 		return "ContentFilterLevel::MEMBER_WITHOUT_ROLES";
-	case ContentFilterLevel::ALL_MEMBERS:
+	case ContentFilterLevelEnum::ALL_MEMBERS:
 		return "ContentFilterLevel::ALL_MEMBERS";
 	}
 	return "UNKNOWN";

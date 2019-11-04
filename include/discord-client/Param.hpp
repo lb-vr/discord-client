@@ -1,3 +1,4 @@
+/*
 #ifndef LBVR_PARAM_HPP
 #define LBVR_PARAM_HPP
 
@@ -129,4 +130,4 @@ inline json11::Json EnumParam<T>::toJson(void) const noexcept {
 
 }
 
-#endif
+#endif*/

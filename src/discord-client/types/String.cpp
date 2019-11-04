@@ -1,4 +1,4 @@
-#include "..\..\..\include\discord-client\types\String.hpp"
+#include "discord-client\types\String.hpp"
 
 json11::Json lbvr::types::String::toJson(void) const {
 	return json11::Json(this->get());

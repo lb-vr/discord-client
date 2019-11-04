@@ -1,16 +1,19 @@
 #ifndef LBVR_ROLE_ROLEBASE_HPP
 #define LBVR_ROLE_ROLEBASE_HPP
 
-#include "../DiscordObjectBase.hpp"
-#include "../Types.hpp"
+#include "../object/__DiscordObjectBase.hpp"
 
 namespace lbvr {
 namespace role {
 
 /// 
 /// Discord document at https://discordapp.com/developers/docs/resources/voice#voice-resource
-class RoleBase : public DiscordObjectBase{
+class Role : public object::__internal::__DiscordObjectBase {
+	Role() {}
+
 protected:
+	class __Impl;
+	std::unique_ptr<__Impl> __impl;
 	
 };
 

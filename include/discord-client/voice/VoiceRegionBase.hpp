@@ -1,3 +1,4 @@
+/*
 #ifndef LBVR_VOICE_VOICEREGIONBASE_HPP
 #define LBVR_VOICE_VOICEREGIONBASE_HPP
 
@@ -25,3 +26,4 @@ protected:
 }
 
 #endif
+*/

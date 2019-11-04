@@ -1,21 +1,21 @@
 #ifndef LBVR_GUILD_PREMIUMTIER_HPP
 #define LBVR_GUILD_PREMIUMTIER_HPP
 
-#include "../Types.hpp"
+#include "../types/Enum.hpp"
 
 namespace lbvr {
 namespace guild {
 
-enum PremiumTier {
+enum PremiumTierEnum {
 	NONE = 0,
 	TIER_1,
 	TIER_2,
 	TIER_3
 };
 
-class premium_tier_d : public EnumParam<PremiumTier> {
+class PremiumTier : public types::Enum<PremiumTierEnum> {
 public:
-	using EnumParam<PremiumTier>::EnumParam;
+	using types::Enum<PremiumTierEnum>::Enum;
 
 	/// @brief toString.
 	virtual std::string toString(void) const noexcept;

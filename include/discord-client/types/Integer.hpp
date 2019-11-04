@@ -6,13 +6,20 @@
 namespace lbvr {
 namespace types {
 
+namespace __internal {
+class __IntegerInitializer {
+public:
+	constexpr operator int() { return 0; }
+};
+}
+
 class Integer : public __internal::__DiscordParam<int> {
 public:
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
 
-class NullableInteger : public __internal::__NullableDiscordParam<int, 0> {
+class NullableInteger : public __internal::__NullableDiscordParam<int, __internal::__IntegerInitializer> {
 public:
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;

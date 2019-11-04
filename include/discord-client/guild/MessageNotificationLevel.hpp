@@ -1,20 +1,20 @@
 #ifndef LBVR_GUILD_MESSAGENOTIFICATIONLEVEL_HPP
 #define LBVR_GUILD_MESSAGENOTIFICATIONLEVEL_HPP
 
-#include "../Param.hpp"
+#include "../types/Enum.hpp"
 
 namespace lbvr {
 namespace guild {
 
 /// @brief message notification level.
-enum struct MessageNotificationLevel {
+enum struct MessageNotificationLevelEnum {
 	ALL_MESSAGE = 0,
 	ONLY_MENTIONS = 1
 };
 
-class message_notification_level_d : public EnumParam<MessageNotificationLevel> {
+class MessageNotificationLevel : public types::Enum<MessageNotificationLevelEnum> {
 public:
-	using EnumParam<MessageNotificationLevel>::EnumParam;
+	using types::Enum<MessageNotificationLevelEnum>::Enum;
 
 	/// @brief toString.
 	virtual std::string toString(void) const noexcept;

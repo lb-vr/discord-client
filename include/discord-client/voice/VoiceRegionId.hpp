@@ -1,3 +1,4 @@
+/*
 #ifndef LBVR_VOICE_VOICEREGIONID_HPP
 #define LBVR_VOICE_VOICEREGIONID_HPP
 
@@ -14,4 +15,4 @@ protected:
 }
 }
 
-#endif
+#endif*/

@@ -1,4 +1,4 @@
-#ifndef LBVR_GUILD_IMPL_HPP
+/*#ifndef LBVR_GUILD_IMPL_HPP
 #define LBVR_GUILD_IMPL_HPP
 
 #include "Guild.hpp"
@@ -100,4 +100,4 @@ public:
 }
 }
 
-#endif
+#endif*/

@@ -1,6 +1,6 @@
 #ifndef LBVR_CHANNEL_CHANNELNAMEANDTYPE_HPP
 #define LBVR_CHANNEL_CHANNELNAMEANDTYPE_HPP
-
+/*
 #include "ChannelBase.hpp"
 
 namespace lbvr {
@@ -14,6 +14,6 @@ protected:
 };
 
 }
-}
+}*/
 
 #endif

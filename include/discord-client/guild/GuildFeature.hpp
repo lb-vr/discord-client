@@ -1,12 +1,12 @@
 #ifndef LBVR_GUILD_GUILDFEATURE_HPP
 #define LBVR_GUILD_GUILDFEATURE_HPP
 
-#include "../Param.hpp"
+#include "../types/Enum.hpp"
 
 namespace lbvr{
 namespace guild {
 
-enum struct GuildFeature {
+enum struct GuildFeatureEnum {
 	INVITE_SPLASH,	///< guild has access to set an invite splash background
 	VIP_REGIONS,	///< guild has access to set 384kbps bitrate in voice(previously VIP voice servers)
 	VANITY_URL,		///< guild has access to set a vanity URL
@@ -20,9 +20,9 @@ enum struct GuildFeature {
 	ANIMATED_ICON,	///< guild has access to set an animated guild icon
 	BANNER,			///< guild has access to set a guild banner image
 };
-class guild_feature_d : public EnumParam<GuildFeature> {
+class GuildFeature : public types::Enum<GuildFeatureEnum> {
 public:
-	using EnumParam<GuildFeature>::EnumParam;
+	using types::Enum<GuildFeatureEnum>::Enum;
 
 	/// @brief toString.
 	virtual std::string toString(void) const noexcept;

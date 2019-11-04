@@ -1,3 +1,4 @@
+/*
 #ifndef LBVR_GUILD_GUILDCREATOR_HPP
 #define LBVR_GUILD_GUILDCREATOR_HPP
 
@@ -75,3 +76,4 @@ class GetGuildMember : public Guild {
 }
 
 #endif
+*/

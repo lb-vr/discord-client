@@ -1,7 +1,7 @@
 #ifndef LBVR_GUILD_GUILD_HPP
 #define LBVR_GUILD_GUILD_HPP
 
-#include "../DiscordObjectBase.hpp"
+#include "../object/__DiscordObjectBase.hpp"
 
 namespace lbvr {
 /*
@@ -30,21 +30,16 @@ class PresenceUpdateBase;
 }*/
 
 namespace guild {
-class verification_level_d;
-class message_notification_level_d;
-class content_filter_level_d;
-class guild_feature_d;
-using guild_features_d = array_d<guild_feature_d>;
 
 /// 
 /// Discord document at https://discordapp.com/developers/docs/resources/guild
-class Guild : public DiscordObjectBase{
+class Guild : public object::__internal::__DiscordObjectBase {
 public:
 	Guild() {}
 
 protected:
-	class __Impl;
-	std::unique_ptr<__Impl> __impl;
+	//class __Impl;
+	//std::unique_ptr<__Impl> __impl;
 };
 
 }

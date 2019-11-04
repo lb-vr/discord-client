@@ -1,4 +1,4 @@
-#ifndef LBVR_VOICE_VOICEBASE_HPP
+/*#ifndef LBVR_VOICE_VOICEBASE_HPP
 #define LBVR_VOICE_VOICEBASE_HPP
 
 #include "../DiscordObjectBase.hpp"
@@ -44,3 +44,4 @@ protected:
 }
 
 #endif
+*/
