@@ -13,7 +13,7 @@ public:
 };
 
 template <class T>
-class __DiscordParam : __DiscordParamBase {
+class __DiscordParam : public __DiscordParamBase {
 public:
 	__DiscordParam(const T & value) noexcept;
 	__DiscordParam(const __DiscordParam & cp) noexcept;
@@ -28,7 +28,7 @@ private:
 };
 
 template <class T, T _DefVal = T()>
-class __NullableDiscordParam : __DiscordParam<T> {
+class __NullableDiscordParam : public __DiscordParam<T> {
 public:
 	__NullableDiscordParam(void) noexcept;
 	using __DiscordParam::__DiscordParam;
