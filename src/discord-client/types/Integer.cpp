@@ -1,5 +1,4 @@
 #include "discord-client\types\Integer.hpp"
-#include <string>
 
 json11::Json lbvr::types::Integer::toJson(void) const {
 	return json11::Json(this->get());
