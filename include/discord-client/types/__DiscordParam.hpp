@@ -2,6 +2,7 @@
 #define LBVR_TYPES_INTERNAL_DISCORDPARAM_HPP
 
 #include "../json11.hpp"
+#include <string>
 
 namespace lbvr {
 namespace types {
