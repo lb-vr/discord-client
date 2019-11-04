@@ -16,7 +16,7 @@ enum struct VerificationLevel {
 };
 
 /// @brief Type of verification level.
-class verification_level_d : EnumParam<VerificationLevel> {
+class verification_level_d : public EnumParam<VerificationLevel> {
 public:
 	using EnumParam<VerificationLevel>::EnumParam;
 };

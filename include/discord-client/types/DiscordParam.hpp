@@ -38,7 +38,7 @@ public:
 	bool isSet(void) const noexcept;
 	void setNull(void) noexcept;
 
-	static constexpr T getDefaultValue(void) const;
+	//static constexpr T getDefaultValue(void) const;
 private:
 	bool is_set_;
 };
@@ -97,8 +97,10 @@ template<class T, T _DefVal>
 inline void lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::setNull(void) noexcept
 { this->is_set_ = false; this->value_ = _DefVal; }
 
+/*
 template<class T, T _DefVal>
 inline constexpr T lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::getDefaultValue(void) const
 { return _DefVal; }
+*/
 
 #endif

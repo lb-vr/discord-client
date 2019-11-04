@@ -21,6 +21,8 @@ public:
 	/// @brief Constructor with value.
 	Param(const T & value) noexcept;
 
+	Param(T && value) noexcept;
+
 	/// @brief Copy constructor.
 	Param(const Param & cp) noexcept;
 
@@ -54,7 +56,8 @@ private:
 };
 
 template <class T>
-class EnumParam : Param<T> {
+class EnumParam : public Param<T> {
+public:
 	using Param<T>::Param;
 
 	/// @brief getAsInt.
@@ -70,6 +73,10 @@ class EnumParam : Param<T> {
 template<class T>
 inline Param<T>::Param(const T & value) noexcept
 	: value_(value) {}
+
+template<class T>
+inline Param<T>::Param(T && value) noexcept
+	: value_(std::move(value)) {}
 
 template<class T>
 inline Param<T>::Param(const Param<T>& copy) noexcept

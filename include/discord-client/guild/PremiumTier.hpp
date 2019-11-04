@@ -13,7 +13,7 @@ enum PremiumTier {
 	TIER_3
 };
 
-class premium_tier_d : EnumParam<PremiumTier> {
+class premium_tier_d : public EnumParam<PremiumTier> {
 public:
 	using EnumParam<PremiumTier>::EnumParam;
 

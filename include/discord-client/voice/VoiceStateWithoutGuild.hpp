@@ -1,11 +1,10 @@
-#ifndef LBVR_GUILD_GUILDBASE_HPP
-#define LBVR_GUILD_GUILDBASE_HPP
+#ifndef LBVR_VOICE_VOICEBASE_HPP
+#define LBVR_VOICE_VOICEBASE_HPP
 
 #include "../DiscordObjectBase.hpp"
 #include "../Types.hpp"
 
 namespace lbvr {
-
 namespace voice {
 class VoiceStateNoGuildId;
 }

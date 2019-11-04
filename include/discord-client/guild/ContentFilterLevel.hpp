@@ -14,7 +14,7 @@ enum struct ContentFilterLevel {
 };
 
 /// @brief Type of content filter level
-class content_filter_level_d : EnumParam<ContentFilterLevel> {
+class content_filter_level_d : public EnumParam<ContentFilterLevel> {
 public:
 	using EnumParam<ContentFilterLevel>::EnumParam;
 

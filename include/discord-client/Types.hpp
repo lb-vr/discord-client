@@ -4,12 +4,10 @@
 #include "Param.hpp"
 #include <string>
 #include <vector>
+#include <typeinfo>
 
 namespace lbvr {
 
-class snowflake_d : public Param<std::string> {
-
-};
 
 class integer_d : public Param<int> {
 public:
@@ -36,16 +34,41 @@ public:
 	}
 };
 
+class snowflake_d : public string_d {
+public:
+	using string_d::string_d;
+};
+
 class boolean_d : public Param<bool> {
-
+public:
+	virtual std::string toString(void) const noexcept {
+		return (this->get() ? "true" : "false");
+	}
+	virtual json11::Json toJson(void) const noexcept {
+		return json11::Json(this->get());
+	}
 };
 
+// TODO
 class timestamp_d : public Param<time_t> {
-
+public:
+	virtual std::string toString(void) const noexcept {
+		return std::to_string(this->get());
+	}
+	virtual json11::Json toJson(void) const noexcept {
+		return json11::Json(this->toString());
+	}
 };
 
+// TODO
 class base64_d : public string_d {
-
+public:
+	virtual std::string toString(void) const noexcept override {
+		return std::to_string(this->get().size()) + " bytes (base64 encoded) file.";
+	}
+	virtual json11::Json toJson(void) const noexcept override {
+		return json11::Json(this->get());
+	}
 };
 
 template <class Item>
@@ -54,8 +77,8 @@ public:
 	array_d(void) noexcept : Param({}) {}
 	using Param<std::vector<Item>>::Param;
 
-	void add(const Item & item) { this->getRef().push_back(item); }
-	void add(Item && item) { this->getRef().emplace_back(std::move(item)); }
+	virtual void add(const Item & item) { this->getRef().push_back(item); }
+	virtual void add(Item && item) { this->getRef().emplace_back(std::move(item)); }
 
 	virtual std::string toString(void) const noexcept {
 		static_assert(std::is_base_of<ParamBase, Item>::value, "Item is not derived from ParamBase.");
@@ -75,6 +98,7 @@ public:
 		return json11::Json(ret);
 	}
 };
+
 
 }
 

@@ -13,7 +13,7 @@ enum struct MfaLevel {
 };
 
 /// @brief Type of mfa level.
-class mfa_level_d : EnumParam<MfaLevel> {
+class mfa_level_d : public EnumParam<MfaLevel> {
 public:
 	using EnumParam<MfaLevel>::EnumParam;
 

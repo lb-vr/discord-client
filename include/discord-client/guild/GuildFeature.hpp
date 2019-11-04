@@ -20,7 +20,7 @@ enum struct GuildFeature {
 	ANIMATED_ICON,	///< guild has access to set an animated guild icon
 	BANNER,			///< guild has access to set a guild banner image
 };
-class guild_feature_d : EnumParam<GuildFeature> {
+class guild_feature_d : public EnumParam<GuildFeature> {
 public:
 	using EnumParam<GuildFeature>::EnumParam;
 

@@ -12,7 +12,7 @@ enum struct MessageNotificationLevel {
 	ONLY_MENTIONS = 1
 };
 
-class message_notification_level_d : EnumParam<MessageNotificationLevel> {
+class message_notification_level_d : public EnumParam<MessageNotificationLevel> {
 public:
 	using EnumParam<MessageNotificationLevel>::EnumParam;
 
