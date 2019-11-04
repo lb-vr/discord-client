@@ -32,8 +32,10 @@ private:
 template <class T, class _Initializer = T>
 class __NullableDiscordParam : public __DiscordParam<T> {
 public:
-	__NullableDiscordParam(const T & default_value = _Initializer()) noexcept;
-	using __DiscordParam::__DiscordParam;
+	__NullableDiscordParam() noexcept;
+	__NullableDiscordParam(const T & value) noexcept;
+	__NullableDiscordParam(const __NullableDiscordParam<T> & cp);
+	__NullableDiscordParam(__NullableDiscordParam<T> && mv);
 	virtual ~__NullableDiscordParam(void) noexcept;
 	
 	virtual void set(const T & value) override;
@@ -85,8 +87,20 @@ inline T & lbvr::types::__internal::__DiscordParam<T>::ref(void) {
 }
 
 template<class T, class _Initializer>
-inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam(const T & default_value) noexcept
-	: value_(_DefVal) {}
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam() noexcept
+	: __DiscordParam(_Initializer()), is_set_(false) {}
+
+template<class T, class _Initializer>
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam(const T & value) noexcept
+	: __DiscordParam(value), is_set_(true) {}
+
+template<class T, class _Initializer>
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam(const __NullableDiscordParam<T> & cp)
+	: __DiscordParam(cp), is_set_(cp.is_set_) {}
+
+template<class T, class _Initializer>
+inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::__NullableDiscordParam(__NullableDiscordParam<T> && mv)
+	: __DiscordParam(std::move(mv)), is_set_(mv.is_set_) {}
 
 template<class T, class _Initializer>
 inline lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::~__NullableDiscordParam(void) noexcept
@@ -102,6 +116,6 @@ inline bool lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::is
 
 template<class T, class _Initializer>
 inline void lbvr::types::__internal::__NullableDiscordParam<T, _Initializer>::setNull(void) noexcept
-{ this->is_set_ = false; this->value_ = _Initializer(); }
+{ this->is_set_ = false; __DiscordParam::set(_Initializer()); }
 
 #endif

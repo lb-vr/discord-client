@@ -15,12 +15,14 @@ public:
 
 class Boolean : public __internal::__DiscordParam<bool> {
 public:
+	using __internal::__DiscordParam<bool>::__DiscordParam;
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
 
 class NullableBoolean : public __internal::__NullableDiscordParam<bool, __internal::__BooleanInitializer> {
 public:
+	using __internal::__NullableDiscordParam<bool, __internal::__BooleanInitializer>::__NullableDiscordParam;
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };

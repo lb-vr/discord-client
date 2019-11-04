@@ -15,12 +15,14 @@ public:
 
 class Integer : public __internal::__DiscordParam<int> {
 public:
+	using __internal::__DiscordParam<int>::__DiscordParam;
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
 
 class NullableInteger : public __internal::__NullableDiscordParam<int, __internal::__IntegerInitializer> {
 public:
+	using __internal::__NullableDiscordParam<int, __internal::__IntegerInitializer>::__NullableDiscordParam;
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
