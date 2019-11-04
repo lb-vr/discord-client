@@ -23,7 +23,8 @@ public:
 
 	virtual const T & get(void) const;
 	virtual void set(const T & value);
-
+protected:
+	T & ref(void) const;
 private:
 	T value_;
 };
@@ -77,6 +78,11 @@ inline const T & lbvr::types::__internal::__DiscordParam<T>::get(void) const
 template<class T>
 inline void lbvr::types::__internal::__DiscordParam<T>::set(const T & value)
 { this->value_ = value; }
+
+template<class T>
+inline T & lbvr::types::__internal::__DiscordParam<T>::ref(void) const {
+	return this->value_;
+}
 
 template<class T, T _DefVal>
 inline lbvr::types::__internal::__NullableDiscordParam<T, _DefVal>::__NullableDiscordParam(void) noexcept

@@ -7,11 +7,13 @@ namespace lbvr {
 namespace types {
 
 class Boolean : public __internal::__DiscordParam<bool> {
+public:
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
 
 class NullableBoolean : public __internal::__NullableDiscordParam<bool, false> {
+public:
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
 };
