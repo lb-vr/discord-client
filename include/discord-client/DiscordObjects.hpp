@@ -1,57 +1,96 @@
 #ifndef LBVR_DISCORDOBJECTS_HPP
 #define LBVR_DISCORDOBJECTS_HPP
 
+#include <vector>
+#include <memory>
+
+namespace lbvr {
+
 //////////////////////////////////////////////////////////////////////////////////
 // Basic Types
-#include "types/Base64.hpp"
-#include "types/Boolean.hpp"
-#include "types/Integer.hpp"
-#include "types/Snowflake.hpp"
-#include "types/String.hpp"
-namespace lbvr {
+namespace types {
+class Base64;
+class Boolean;
+class Integer;
+class Snowflake;
+class String;
+class Timestamp;
+}
+
 using base64_d						= types::Base64;
 using boolean_d						= types::Boolean;
 using integer_d						= types::Integer;
 using snowflake_d					= types::Snowflake;
 using string_d						= types::String;
+using timestamp_d					= types::Timestamp;
+template <class T> using nullable	= std::unique_ptr<T>;
 template <class T> using array_d	= std::vector<T>;
-}
 
 //////////////////////////////////////////////////////////////////////////////////
 // Guild Type
-#include "guild/Guild.hpp"
-#include "guild/ContentFilterLevel.hpp"
-#include "guild/GuildFeature.hpp"
-#include "guild/GuildMember.hpp"
-#include "guild/MessageNotificationLevel.hpp"
-#include "guild/MfaLevel.hpp"
-#include "guild/PremiumTier.hpp"
-#include "guild/UnavailableGuild.hpp"
-#include "guild/VerificationLevel.hpp"
-namespace lbvr {
-using guild_d						= guild::Guild;
-using content_filter_level_d		= guild::ContentFilterLevel;
-using guild_feature_d				= guild::GuildFeature;
-using guild_member_d				= guild::GuildMember;
-using message_notification_level_d	= guild::MessageNotificationLevel;
-using mfa_level_d					= guild::MfaLevel;
-using premium_tier_d				= guild::PremiumTier;
-using unavailable_guild_d			= guild::UnavailableGuild;
-using verification_level_d			= guild::VerificationLevel;
+namespace guild {
+class Guild;
+class GuildId;
+
+class ContentFilterLevel;
+class GuildFeature;
+class GuildMember;
+class GuildModifier;
+class GuildMemberModifier;
+class GuildEmbed;
+class GuildEmbedModifier;
+class MessageNotificationLevel;
+class MfaLevel;
+class PremiumTier;
+class UnavailableGuild;
+class VerificationLevel;
+class PresenceUpdate;
+class Ban;
+class Invite;
+class InviteVanityUrl;
+class Integration;
+class IntegrationId;
+class WidgetStyleOptions;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
 // Channel
-#include "channel/Channel.hpp"
-namespace lbvr {
-using channel_d						= channel::Channel;
+namespace channel {
+class Channel;
+class ChannelId;
+class NullableChannelId;
+class NewChannel;
 }
+
 
 //////////////////////////////////////////////////////////////////////////////////
 // Role
-#include "role/Role.hpp"
-namespace lbvr {
-using role_d						= role::Role;
+namespace role {
+class Role;
+class RoleId;
+class RoleModifier;
 }
 
+//////////////////////////////////////////////////////////////////////////////////
+// Voice
+namespace voice {
+class RegionID;
+class State;
+}
+
+//////////////////////////////////////////////////////////////////////////////////
+// User
+namespace user {
+class User;
+class UserId;
+}
+
+
+//////////////////////////////////////////////////////////////////////////////////
+// Emoji
+namespace emoji {
+class Emoji;
+}
+
+}
 #endif

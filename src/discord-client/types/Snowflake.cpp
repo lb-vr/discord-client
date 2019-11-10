@@ -20,3 +20,7 @@ json11::Json lbvr::types::Snowflake::toJson(void) const {
 std::string lbvr::types::Snowflake::toString(void) const {
 	return std::to_string(this->get());
 }
+
+std::string lbvr::types::Snowflake::getAsString(void) const {
+	return std::to_string(this->get());
+}

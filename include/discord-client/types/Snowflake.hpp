@@ -12,6 +12,7 @@ public:
 	virtual ~Snowflake(void) noexcept;
 	virtual json11::Json toJson(void) const override;
 	virtual std::string toString(void) const override;
+	std::string getAsString(void) const;
 };
 
 }
